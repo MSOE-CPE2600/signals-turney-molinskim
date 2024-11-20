@@ -4,13 +4,18 @@
  */
 
 /**
- * Modified by:
+ * Modified by: Marshall Molinski
  * 
  * Brief summary of modifications:
  */
 
 
 #include <stdio.h>
+#include <signal.h>
+
+void segfault_handler(int sig) {
+    printf("Segmentation fault caught: %d\n", sig);
+}
 
 int main (int argc, char* argv[]) {
     // Declare a null pointer
