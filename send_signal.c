@@ -2,7 +2,8 @@
  * File: send_signal.c
  * Modified by: Marshall Molinski
  * 
- * Brief summary of program:
+ * Brief summary of program: Sends SIGUSR1 to a process along
+ *                           with a random integer value.
  */
 #include <signal.h>
 #include <stdlib.h>
@@ -19,7 +20,6 @@ int main(int argc, char *argv[]){
     int value = rand() % 100;
     union sigval sv;
     sv.sival_int = value;
-
     sigqueue(pid, SIGUSR1, sv);
     printf("Sent value : %d\n", value);
     return 0;

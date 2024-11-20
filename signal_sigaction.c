@@ -2,7 +2,8 @@
  * File: signal_sigaction.c
  * Modified by: Marshall Molinski
  * 
- * Brief summary of program:
+ * Brief summary of program: Demonstrates sigaction() system call
+ *                           For signal handling.
  */
 #include <signal.h>
 #include <stdio.h>
@@ -22,4 +23,3 @@ int main(){
     while(1) pause();//wait
     return 0;
 }
-

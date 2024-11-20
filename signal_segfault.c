@@ -6,7 +6,8 @@
 /**
  * Modified by: Marshall Molinski
  * 
- * Brief summary of modifications:
+ * Brief summary of modifications: Demonstrates how to intercept the
+ *                                 SIGSEGV signal using a signal handler
  */
 
 
@@ -17,12 +18,13 @@ void segfault_handler(int sig) {
     printf("Segmentation fault caught: %d\n", sig);
 }
 
-int main (int argc, char* argv[]) {
+int main () {
+    signal(SIGSEGV, segfault_handler);
     // Declare a null pointer
-    int* i = NULL;
+    int *ptr = NULL;
 
     // Dereference the null pointer
-    printf("The value of i is: %d\n", *i);
+    printf("The value of i is: %d\n", *ptr);
 
     // Return to exit the program
     return 0;

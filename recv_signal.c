@@ -2,7 +2,9 @@
  * File: recv_signal.c
  * Modified by: Marshall Molinski
  * 
- * Brief summary of program:
+ * Brief summary of program: Registers a handler for SIGUSR1
+ *                           that prints a value sent with the 
+ *                           signal.
  */
  #include <signal.h>
  #include <stdio.h>
