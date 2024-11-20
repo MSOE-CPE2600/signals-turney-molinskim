@@ -4,9 +4,11 @@
  */
 
 /**
- * Modified by:
+ * Modified by: Marshall Molinski
  * 
- * Brief summary of modifications:
+ * Brief summary of modifications: Register a signal handler
+ *                                 and handle signals like SIGINT
+ *                                 without exiting the program.
  */
 
 
@@ -18,20 +20,31 @@
 /**
  * @brief Signal handler for SIGINT - prints a message and exits
  */
-void handle_signal() {
-    printf("Received a signal\n");
-    exit(1);
+void handle_signal(int sig) {
+    if(sig == SIGINT) {
+    printf("\nCaught SIGINT. Send SIGKILL to terminate.\n");
+    }
 }
 
 int main() {
 
     // Register for the signal
-    signal(SIGINT, handle_signal);
+    struct sigaction action;
+    action.sa_handler = handle_signal;//set handler function
+    action.sa_flags = 0;//no special flags
+    sigaction(SIGINT, &action, NULL);//register the signal handler
 
-    // Wait until a signal is received
+    printf("Running signal handler. PID: %d\n", getpid());
+    printf("CTRL+C to send SIGINT (will not terminate the program).\n");
+    printf("CTRL+\\ or send SIGKILL to terminate the program.\n");
+
+    // infinite loop that waits for signals
     while(1) {
-        printf("Sleeping\n");
-        sleep(1);
+        pause();//wait
+        if (signal(SIGQUIT, SIG_DFL) == SIG_DFL) {
+            printf("Caught SIGQUIT. Exiting program.\n");
+            break;
+        }
     }
 
     return 0;
